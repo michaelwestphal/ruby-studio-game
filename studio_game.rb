@@ -39,21 +39,25 @@ current_formatted_time = Time.new.strftime('%A %m/%d/%Y at %H:%M')
 puts "The game started on #{current_formatted_time}"
 
 player1 = Player.new('moe')
-puts player1
-
 player2 = Player.new('larry', 60)
-puts player2.name
-player2.name = 'lawrence'
-puts player2.name
-puts player2.health
-puts player2.score
-puts player2
+player3 = Player.new('curly', 125)
 
-# player3 = Player.new('curly', 125)
-# puts player3
-# player3.blam
-# puts player3
-# player3.w00t
-# puts player3
+players = [player1, player2, player3]
+
+puts "There are #{players.size} players in the game:"
+
+players.each do |player|
+  player.blam
+  player.w00t
+  player.w00t
+  puts player
+end
+
+players.pop
+players.push(Player.new('shemp', 90))
+
+players.each do |player|
+  puts player
+end
 
 # puts player3.inspect
