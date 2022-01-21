@@ -1,8 +1,7 @@
 class Player
-  attr_accessor :name
-  attr_reader :health
+  attr_reader :name, :health
 
-  def initialize(name, health=100)
+  def initialize(name, health = 100)
     @name = name.capitalize
     @health = health
   end
@@ -35,8 +34,8 @@ class Player
   end
 end
 
-if __FILE__ == $0
-  player = Player.new("moe")
+if __FILE__ == $PROGRAM_NAME
+  player = Player.new('moe')
   puts player.name
   puts player.health
   player.w00t
