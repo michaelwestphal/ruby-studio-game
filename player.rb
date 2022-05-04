@@ -10,6 +10,10 @@ class Player
     @name = new_name.capitalize
   end
 
+  def strong?
+    @health > 100
+  end
+
   def blam
     @health -= 10
     puts "#{@name} got blammed!"
