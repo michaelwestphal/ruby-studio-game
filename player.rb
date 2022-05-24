@@ -36,6 +36,12 @@ class Player
     current_time = Time.new
     current_time.strftime('%H:%M:%S')
   end
+
+  def <=>(other)
+    # TODO: What don't I need the at-sign here to reference the health of this player?
+    # other.health <=> @health
+    other.health <=> health
+  end
 end
 
 if __FILE__ == $PROGRAM_NAME
