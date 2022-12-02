@@ -16,6 +16,16 @@ class Game
     # @players.push(player)
   end
 
+  # I'm trying to think about the data modeling and design they have going on here
+  # How they're choosing to encapsulate data and the like. I feel I "design on the fly"
+  # too often at what expense? It feels like that the expense of my models and the ability
+  # to see what is really happening. I "just want to code" at the expense of the feature
+  # even if I'm relatively satisfied with the end result, it does not feel like enough
+  # care and forethought has been given...
+  def total_points
+    @players.reduce(0) { |acc,n| acc + n.points }
+  end
+
   def play(rounds)
     current_formatted_time = Time.new.strftime('%A %m/%d/%Y at %H:%M')
     puts "The game started on #{current_formatted_time}"
@@ -32,6 +42,12 @@ class Game
     end
 
     1.upto(rounds) do |round|
+      if block_given?
+        break if yield
+      end
+      # OR
+      # break if block_given? and yield
+
       puts "\nRound: #{round}:"
 
       @players.each do |player|
@@ -65,5 +81,15 @@ class Game
       formatted_name = player.name.ljust(20,'.')
       puts "#{formatted_name} #{player.health}"
     end
+
+    @players.each do |player|
+      puts "\n#{player.name}'s total points:"
+      player.each_found_treasure do |treasure|
+        puts "#{treasure.points} total #{treasure.name} points"
+      end
+      puts "#{player.points} grand total points"
+    end
+
+    puts "\n#{total_points} total points from treasures found"
   end
 end
