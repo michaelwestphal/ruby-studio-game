@@ -1,3 +1,4 @@
+# require 'csv'
 require_relative 'player'
 require_relative 'game_turn'
 require_relative 'treasure_trove'
@@ -14,6 +15,35 @@ class Game
     @players << player
     # Or with push
     # @players.push(player)
+  end
+
+  def load_players(from_file = "players.csv")
+    # CSV.foreach(from_file) do |row|
+    #   name, health = row
+    #   add_player(Player.new(name, Integer(health)))
+    # end
+    File.readlines(from_file).each do |line|
+      # In the course we refactored the original implementation
+      # to be within the new class-level from_csv method on Player.
+      # The idea being that we are keeping code at the same general
+      # level of abstraction and the from_csv portion was lower
+      # than the reading of lines and adding them as players.
+      add_player(Player.from_csv(line))
+    end
+  end
+
+  def save_high_scores(to_file = "high_scores.txt")
+    File.open(to_file, "w") do |file|
+      file.puts "#{@title} High Scores:"
+      @players.sort.each do |player|
+        file.puts high_score_entry(player)
+      end
+    end
+  end
+
+  def high_score_entry(player)
+    formatted_name = player.name.ljust(20,'.')
+    "#{formatted_name} #{player.health}"
   end
 
   # I'm trying to think about the data modeling and design they have going on here
@@ -78,8 +108,7 @@ class Game
 
     puts "\n#{@title} High Scores:"
     @players.sort.each do |player|
-      formatted_name = player.name.ljust(20,'.')
-      puts "#{formatted_name} #{player.health}"
+      puts high_score_entry(player)
     end
 
     @players.each do |player|
@@ -92,4 +121,9 @@ class Game
 
     puts "\n#{total_points} total points from treasures found"
   end
+end
+
+if __FILE__ == $PROGRAM_NAME
+  game = Game.new('Bingo')
+  game.load_players
 end
