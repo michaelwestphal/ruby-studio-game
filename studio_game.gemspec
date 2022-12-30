@@ -1,6 +1,6 @@
 Gem::Specification.new do |s|
   s.name         = "studio_game_michaelwestphal"
-  s.version      = "1.0.0"
+  s.version      = "1.0.1"
   s.author       = "Michael Westphal"
   s.email        = "michaelwestphal@hey.com"
   s.homepage     = "https://github.com/michaelwestphal/ruby-studio-game"
