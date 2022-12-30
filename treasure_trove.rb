@@ -14,3 +14,19 @@ module TreasureTrove
     TREASURES.sample
   end
 end
+
+if __FILE__ == $PROGRAM_NAME
+  # I want to see how numeric types are converted
+  # Please see the found_treasure method in ClumsyPlayer
+  treasure_one = Treasure.new('one', 1)
+  treasure_two = Treasure.new('two', 2.0)
+
+  puts treasure_one.points.class
+  puts treasure_two.points.class
+
+  treasure_one = Treasure.new('one', 1/1)
+  treasure_two = Treasure.new('two', 2/1.0)
+
+  puts treasure_one.points.class
+  puts treasure_two.points.class
+end

@@ -36,22 +36,27 @@ describe Game do
     expect(@player.health).to eq(@initial_health - (10 * 2))
   end
 
-  # FIXME?
   it 'plays a number of rounds' do
+    # FIXME: It appears I added this as my own "extra credit". What should I do? Should I leave it?
     # 👇 This does not work
     allow_any_instance_of(Die).to receive(:roll).and_return(1, 3, 5)
+    # allow_any_instance_of(Die).to receive(:roll).and_return(1)
+    # allow_any_instance_of(Die).to receive(:roll).and_return(3)
+    # allow_any_instance_of(Die).to receive(:roll).and_return(5)
+
     # The reason is around the allow_any_instance_of works on a call
     # and not an instance, so effectively it seems to only be able to utilize the first
     # value in the and_return. Is there a way to spy upon the GameTurn module to find and
     # wrap, or something like it, its use of the Die class?
     #
     # https://rspec.info/documentation/3.10/rspec-mocks/#settings-mocks-or-stubs-on-any-instance-of-a-class
+    # https://rubydoc.info/gems/rspec-mocks/3.10.2/RSpec/Mocks/MessageExpectation#and_return-instance_method
 
     @game.play(3)
 
     # 👇 should be the result
-    #expect(@player.health).to eq(@initial_health + 5)
-    expect(@player.health).to eq(@initial_health)
+    # expect(@player.health).to eq(@initial_health + 5)
+    expect(@player.health).to eq(@initial_health - (3 * 10))
   end
 
   it "assigns a treasure for points during a player's turn" do
