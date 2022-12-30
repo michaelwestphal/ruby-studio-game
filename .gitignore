@@ -2,3 +2,4 @@
 *.sublime-workspace
 
 high_scores.txt
+*.gem
