@@ -53,6 +53,8 @@ class Game
   # even if I'm relatively satisfied with the end result, it does not feel like enough
   # care and forethought has been given...
   def total_points
+    # ClumsyPlayer can have Float value Treasure points. If we want to force the sum
+    # back to an Integer, try to_i...
     @players.reduce(0) { |acc,n| acc + n.points }
   end
 

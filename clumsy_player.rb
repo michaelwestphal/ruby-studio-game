@@ -10,6 +10,12 @@ class ClumsyPlayer < Player
   end
 
   def found_treasure(treasure)
+    # NOTE: The 2.0 denominator is changing the numeric type of the points held in the treasure
+    #  from an Integer to Float. (See the test within the TreasureTrove module.) This is changing
+    #  the value of the total_points method on the Game automatically converts the returned sum
+    #  into a Float when it comes across it in the treasures. Float must "supersede" Integer,
+    #  forcing a type conversion when working between integers and decimals. I bet we could force
+    #  it back with to_i...
     damaged_treasure = Treasure.new(treasure.name, treasure.points / 2.0)
     super(damaged_treasure)
   end
